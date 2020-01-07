@@ -11,11 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('todo', 'TaskController@index');
+Route::get('/', 'TaskController@index');
 
 Route::post('add_todo', 'TaskController@create');
 

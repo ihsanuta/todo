@@ -35,18 +35,21 @@
             todokeyup();
         });
         $(document).on("click","#add_todo", function(){
+            let txt = $('#in_todo').val();
             $.ajax({
                 type : "POST",
                 url : '/add_todo',
                 data :{
                         "_token": "{{ csrf_token() }}",
-                        "todo": $('#in_todo').val()
+                        "todo": txt
                     },
                 dataType:'json',
                 success : function(res) {
                     if(res.msg == "OK"){
-                        let task = '<div class="checkbox" id="cont_'+res.last_id+'"><label id="task_'+res.last_id+'" ><input type="checkbox" class="checkbox_lbl" value="'+res.last_id+'"> '+$('#in_todo').val()+'</label></div>';
+                        let task = '<div class="checkbox" id="cont_'+res.last_id+'"><label id="task_'+res.last_id+'" ><input type="checkbox" class="checkbox_lbl" value="'+res.last_id+'"> '+txt+'</label></div>';
                         $('#list_todo').append(task);
+                        $('#in_todo').val("");
+                        $("#content").html("Type in a new todo...");
                     }
                 }
             });
